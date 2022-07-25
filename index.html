@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Encriptador</title>
+    
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="logoAlura.png" alt="logo Alura">
+            <span id="appTitle">Challenge 1: Encriptador</span>
+        </div>
+    </nav>
+    <div id="principal">
+        <textarea type="text" id="textoPlano" placeholder="Ingresa el texto aquí que desees encriptar o desencriptar" autofocus></textarea> <br><br>
+        <button id="btnEncriptar">Encriptar</button>
+        <button id="btnDesencriptar">Desencriptar</button>
+    </div>
+    <div id="resultado">
+        <h3 id="titulo">Resultado</h3>
+        <span id="textoResultado" >No se ha realizado ninguna acción</span><br><br>
+        <button id="btnCopiar">Copiar</button>
+    </div>
+    <script>
+        var inputTexto = document.getElementById("textoPlano");
+        inputTexto.focus();
+        var spanTextoRes = document.getElementById("textoResultado");
+        
+        function encriptar(){
+            var textoPlano = inputTexto.value;
+            var textoEncriptado='';
+
+            for(i=0; i<textoPlano.length; i++){
+                //console.log(textoPlano.charAt(i));
+                /*if (textoPlano.charAt(i) == '3'){
+                    console.log("Se encontro 3")
+                }*/
+                switch (textoPlano.charAt(i)) {
+                    case 'a':
+                        textoEncriptado = textoEncriptado.concat("ai");
+                        break;
+                                    
+                    case 'e':
+                        textoEncriptado = textoEncriptado.concat("enter");
+                        break;
+                                   
+                    case 'i':
+                        textoEncriptado = textoEncriptado.concat("imes");
+                        break;
+                                    
+                    case 'o':
+                        textoEncriptado = textoEncriptado.concat("ober");
+                        break;
+                    
+                    case 'u':
+                        textoEncriptado = textoEncriptado.concat("ufat");
+                        break;
+                    
+                    default:
+                        textoEncriptado = textoEncriptado.concat(textoPlano.charAt(i));
+                        break;
+                }
+            }
+            inputTexto.value = "";
+            inputTexto.focus();
+            spanTextoRes.innerHTML = textoEncriptado;
+            mostrarResultado()
+            //console.log(textoEncriptado);
+        }
+
+        function desencriptar(){
+            var textoPlano = inputTexto.value;
+            var textoDesencriptado='';
+            var bandera = true;
+            for(i=0; i<textoPlano.length; i++){ 
+                if (textoPlano.includes('ai')){
+                    textoPlano = textoPlano.replace('ai','a');
+                } else if (textoPlano.includes('enter')){
+                    textoPlano = textoPlano.replace('enter','e');
+                }else if (textoPlano.includes('imes')){
+                    textoPlano = textoPlano.replace('imes','i');
+                }else if (textoPlano.includes('ober')){
+                    textoPlano = textoPlano.replace('ober','o');
+                }else if (textoPlano.includes('ufat')){
+                    textoPlano = textoPlano.replace('ufat','u');
+                }else{
+                    break;
+                }
+                //console.log(textoPlano);
+            }
+            textoDesencriptado = textoDesencriptado.concat(textoPlano);
+            spanTextoRes.innerHTML = textoDesencriptado;
+            //console.log(textoDesencriptado);
+            inputTexto.value = "";
+            inputTexto.focus();
+            mostrarResultado()
+        }
+
+        function copiarTexto(){
+            var enlace = document.getElementById("textoResultado");
+            var inputFalso = document.createElement("input");
+            inputFalso.setAttribute("value", enlace.innerHTML);
+            document.body.appendChild(inputFalso);
+            inputFalso.select();
+            document.execCommand("copy");
+            document.body.removeChild(inputFalso);
+        }
+
+        function mostrarResultado() {
+            var titulo = document.getElementById("titulo");
+            var functionCopiar = document.getElementById("btnCopiar");
+            titulo.style.display = "block";
+            functionCopiar.style.display = "block";
+            spanTextoRes.style.display = "block";
+            var resultado = document.getElementById("resultado");
+            resultado.style.backgroundImage = "none";
+        }
+
+        var functionEncriptar = document.getElementById("btnEncriptar");
+	    functionEncriptar.onclick = encriptar;
+        var functionDesencriptar = document.getElementById("btnDesencriptar");
+	    functionDesencriptar.onclick = desencriptar;
+        var functionCopiar = document.getElementById("btnCopiar");
+	    functionCopiar.addEventListener("click", copiarTexto, false);
+
+    </script>
+    
+</body>
+</html>
